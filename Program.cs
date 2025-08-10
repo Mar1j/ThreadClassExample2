@@ -28,9 +28,10 @@ class Program
     static async Task<int> PerformAsyncOperation()
     {
         int sum=0;
-  for(int i=0;i<100_000_000;i++)
+  for(int i=0;i<100;i++)//I change the number of iterations in the loop
         {
             sum += i;
+         
         }
 
         return sum;
