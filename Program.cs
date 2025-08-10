@@ -1,47 +1,40 @@
 ﻿using System;
-using System.Net;
-using System.Threading;
+using System.Threading.Tasks;
+
 
 class Program
 {
-
-    static int sharedCounter=0;
-    static object Lockobject=new object();
-
-    static void Main()
+    static async Task Main()
     {
+        //i am pushing this code to github
+        // Create and run an asynchronous task
+        Task<int> resultTask = PerformAsyncOperation();
+
+        // Do some other work while waiting for the task to complete
+        Console.WriteLine("Doing some other work...");
 
 
-        Thread t1 = new Thread(IncrementCounter);
-        t1.Start();
-     
+        // Wait for the task to complete and retrieve the result
+        int result = await resultTask;
+        
 
-        Thread t2 = new Thread(IncrementCounter);
-        t2.Start();
+        // Process the result
+        Console.WriteLine($"Result: {result}");
 
-
-        t1.Join();
-        t2.Join();
-
-
-        Console.WriteLine("Final Counter Value: " + sharedCounter);
-        Console.ReadKey();
-
-
-
+        Console.WriteLine("Doing some other work...2");
     }
 
-   static void IncrementCounter()
+
+    static async Task<int> PerformAsyncOperation()
     {
-        for (int i=0;i< 1_000_000_000; i++)
+        int sum=0;
+  for(int i=0;i<100;i++)//I change the number of iterations in the loop
         {
-            lock (Lockobject)
-            {
-                sharedCounter++;
-            }
+            sum += i;
+         
         }
 
+        return sum;
     }
-
 }
 
